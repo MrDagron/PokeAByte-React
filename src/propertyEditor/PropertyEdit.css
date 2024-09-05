@@ -1,0 +1,90 @@
+body {
+	font-family: "Roboto", "Helvetica", "Arial", "sans-serif";
+}
+
+#property-editor h1 {
+	padding: 8px;
+	font-size: 1.25rem;
+}
+#root:has(#property-editor)  {
+	width: 100%;
+	text-align: left;
+}
+
+#property-editor {
+	background-color: rgba(50,51,61,1);
+	color: rgba(255, 255, 255, 0.698);
+	width: 100%;
+}
+
+.property-group {
+	background-color: (50, 51, 61);
+	font-size: 14px;
+	line-height: 1.43;
+	margin-top: 2px;
+	margin-bottom: 2px;
+	margin-left: 8px;
+	padding-left: 16px;
+	padding-right: 16px;
+}
+
+.property-group summary {
+	display: flex;
+	width: 100%;
+}
+.property-group summary div:first-child {
+	min-width: 25%;
+	line-height: 24px;
+	vertical-align: middle;
+	text-align: left;
+}
+.property-group summary div:nth-child(2) {
+	color: #616161
+}
+.property-group > details > div label {
+	margin-left: 32px;
+	min-width: 25%;
+	display: inline-block;
+	font-size: 1em;
+	font-size: 14px;
+}
+
+.property-input {
+	background-color: rgb(55, 55, 64);
+	margin-bottom: 2px;
+}
+
+.property-input input {
+	height: 25px;
+	font-size: 16px;
+	color: rgba(255, 255, 255, 0.698);
+	background: none;
+	border: 0;
+	padding: 4px 4px 0px 4px;
+	height: 11h;
+	border-bottom: 1px solid rgba(255,255,255,0.2980392156862745);
+}
+
+.material-icons {
+	font-size: 20px !important;
+	vertical-align: middle;
+}
+
+button[type="button"]:has(.material-icons) {
+	background: none;
+	border: none;
+	color: rgba(255, 255, 255, 0.698);
+	padding: 0px 4px;
+}
+
+button[type="button"] .material-icons {
+	font-size: 24px !important;
+}
+.material-icons.inactive {
+	font-size: 24px !important;
+	color:  rgba(255, 255, 255, 0.26) !important;
+	fill:  rgba(255, 255, 255, 0.26) !important;
+}
+.material-icons.frozen {
+	color: #00bfd8;
+}
