@@ -29,7 +29,11 @@ export class PropertyStore {
 	}
 
 	onPropertiesChange = (paths: string[]) => {
-		this._pendingPathUpdates.push(...paths);
+    paths.forEach(path => {
+      if (!this._pendingPathUpdates.includes(path)) {
+        this._pendingPathUpdates.push(path);
+      }
+    })
 	}
 
 	onMapperChange = () => {
