@@ -15,7 +15,7 @@ export function getPropertyFieldValue(property: GameProperty) {
 
 export function PropertyInputField({ path }: { path: string }) {
   var property = useGameProperty(path);
-  if (!property) {
+  if (property === null) {
     return null;
   }
   let type = property.type === "bit" || property.type === "bool" ? "checkbox" : "text";
@@ -25,7 +25,9 @@ export function PropertyInputField({ path }: { path: string }) {
   const [madeEdit, setMadeEdit] = React.useState(false);
   const handleSave = useCallback(
     () => {
-      Store.client.updatePropertyValue(property.path, value).then(() =>setMadeEdit(false) );
+      if (property?.path) {
+        Store.client.updatePropertyValue(property.path, value).then(() =>setMadeEdit(false) );
+      }
     },
     [property.path]
   );
