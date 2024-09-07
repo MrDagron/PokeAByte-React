@@ -1,4 +1,4 @@
-import { PokeAClient, GameProperty } from "pokeaclient";
+import { PokeAClient, GameProperty, ChangedField } from "pokeaclient";
 
 
 export class PropertyStore {
@@ -14,7 +14,9 @@ export class PropertyStore {
 			onMapperChange: this.onMapperChange,
 			onPropertiesChanged: this.onPropertiesChange,
 			onConnectionChange: this.onConnectionChange
-		});
+		}, {
+      updateOn: [ChangedField.bytes, ChangedField.value, ChangedField.frozen]
+    });
 		this.client.connect();
 		window.setInterval(() => this.sendPropertyChanges(), 50);
 	}
