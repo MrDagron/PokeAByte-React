@@ -4,6 +4,7 @@ import { Store } from "../store/propertyStore";
 import { SaveValueButton } from "./SaveValueButton";
 import { FreezeValueButton } from "./FreezeValueButton";
 import { useGameProperty } from "../hooks/useGameProperty";
+import { Toasts } from "../../notifications/ToastStore";
 
 
 export function getPropertyFieldValue(property: GameProperty) {
@@ -26,7 +27,11 @@ export function PropertyInputField({ path }: { path: string }) {
   const handleSave = useCallback(
     () => {
       if (property?.path) {
-        Store.client.updatePropertyValue(property.path, value).then(() =>setMadeEdit(false) );
+        Store.client.updatePropertyValue(property.path, value)
+          .then(() => {
+            setMadeEdit(false);
+            Toasts.push(`Saved successful`, "task_alt", "succcess");
+        });
       }
     },
     [property.path]

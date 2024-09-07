@@ -3,11 +3,11 @@ import React from 'react';
 import './App.css'
 import GetMappers from "./mappers/get-mappers.tsx";
 import { PropertyEditor } from './propertyEditor/PropertyEditor.tsx';
+import { ToastContainer } from './notifications/ToastContainer.tsx';
 
 function App() {
   // todo: Use a proper router or something.
 	const [viewState, setViewState] = React.useState<"mappers" | "properties">("properties");
-
 
 		return (
 			<>
@@ -25,6 +25,7 @@ function App() {
 					? <GetMappers />
 					: <PropertyEditor />
 				}
+        <ToastContainer />
 			</>
 		)
 	

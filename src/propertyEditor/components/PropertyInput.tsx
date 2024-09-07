@@ -4,6 +4,7 @@ import { CopyValueIcon } from "./CopyValueIcon";
 import { Store } from "../store/propertyStore";
 import classNames from "classnames";
 import { PropertyInfoTable } from "./PropertyInfoTable";
+import { clipboardCopy } from "../utils/clipboardCopy";
 
 export const PropertyInput = memo(
   function PropertyInput({ path }: { path: string }) {
@@ -12,9 +13,9 @@ export const PropertyInput = memo(
 
     const handleCopyClick = () => {
       var currentPropValue = Store.getProperty(path)();
-      console.log("copy value of " + path);
+      
       if (currentPropValue) {
-        navigator.clipboard.writeText(getPropertyFieldValue(currentPropValue));
+        clipboardCopy(getPropertyFieldValue(currentPropValue));
       }
     };
 
