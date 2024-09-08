@@ -48,12 +48,22 @@ header {
 .property-group summary {
 	display: flex;
 	width: 100%;
+	margin-bottom: 4px;
+	padding: 1px 4px;
+}
+.property-group summary:hover {
+	background-color: rgba(173,173,177,0.058823529411764705);
+}
+
+.property-group summary div {
+	padding: 4px 0;
+	vertical-align: middle;
+	line-height: 24px;
 }
 
 .property-group summary div:first-child {
-	min-width: 25%;
-	line-height: 24px;
-	vertical-align: middle;
+	min-width: 10%;
+	margin-right: 5em;
 	text-align: left;
 }
 
@@ -64,19 +74,17 @@ header {
 .property-input {
 	margin-left: 16px;
 	padding-left: 8px;
+	background-color: rgb(55, 55, 64);
+	margin-bottom: 4px;
 }
 
 .property-group>details>div label {
 	margin-left: 16px;
-	min-width: 25%;
+	min-width: 10%;
 	display: inline-block;
+	margin-right: 2em;
 	font-size: 1em;
 	font-size: 14px;
-}
-
-.property-input {
-	background-color: rgb(55, 55, 64);
-	margin-bottom: 2px;
 }
 
 .property-input input[type="text"] {
@@ -87,7 +95,17 @@ header {
 	border: 0;
 	padding: 4px 4px 0px 4px;
 	height: 11h;
+	line-height: 1.43;
 	border-bottom: 1px solid rgba(255, 255, 255, 0.2980392156862745);
+	margin-bottom: 2px;
+}
+
+.property-input input[type="text"]:focus {
+	outline: none;
+}
+
+.property-input input[type="text"]:focus-within {
+	border-bottom: 2px solid rgba(119,107,231,1);
 }
 
 input:where([type="checkbox"]) {
@@ -132,10 +150,6 @@ button[type="button"]:has(.material-icons) {
 	padding: 0px 4px;
 }
 
-button[type="button"] .material-icons {
-	font-size: 24px !important;
-}
-
 .material-icons.inactive {
 	font-size: 24px !important;
 	color: rgba(255, 255, 255, 0.26) !important;
@@ -144,6 +158,10 @@ button[type="button"] .material-icons {
 
 .material-icons.frozen {
 	color: #00bfd8;
+}
+
+.material-icons.info {
+	color: var(--color-info);
 }
 
 .naterial-icons.info {
@@ -161,6 +179,17 @@ button[type="button"] .material-icons {
 	border-collapse: collapse;
 	line-height: 1.43;
 	width: 70%;
+}
+
+.property-input span,
+.property-input label {
+	line-height: 1.43;
+	vertical-align: middle;
+}
+
+.property-input > span > span.material-icons {
+	font-size: 16px !important;
+	text-align: center;
 
 }
 
