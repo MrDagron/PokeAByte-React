@@ -39,6 +39,7 @@ export class PropertyStore {
 	}
 
 	onMapperChange = () => {
+    console.log(this.client.getGlossary());
 		this._mapperSubscriber.forEach(callback => callback());
 	}
 	onConnectionChange = () => {

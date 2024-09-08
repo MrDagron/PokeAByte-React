@@ -6,22 +6,30 @@
 	--color-error: rgb(255, 63, 95)
 }
 
-
 body {
 	font-family: "Roboto", "Helvetica", "Arial", "sans-serif";
+}
+
+header {
+	height: 64px;
+	background-color: rgba(50,51,61,1);
+	position: sticky;
+	display: flex;
+	justify-content: center;
 }
 
 #property-editor h1 {
 	padding: 8px;
 	font-size: 1.25rem;
 }
-#root:has(#property-editor)  {
+
+#root:has(#property-editor) {
 	width: 100%;
 	text-align: left;
 }
 
 #property-editor {
-	background-color: rgba(50,51,61,1);
+	background-color: rgba(50, 51, 61, 1);
 	color: rgba(255, 255, 255, 0.698);
 	width: 100%;
 }
@@ -40,13 +48,25 @@ body {
 .property-group summary {
 	display: flex;
 	width: 100%;
+	margin-bottom: 4px;
+	padding: 1px 4px;
 }
-.property-group summary div:first-child {
-	min-width: 25%;
-	line-height: 24px;
+.property-group summary:hover {
+	background-color: rgba(173,173,177,0.058823529411764705);
+}
+
+.property-group summary div {
+	padding: 4px 0;
 	vertical-align: middle;
+	line-height: 24px;
+}
+
+.property-group summary div:first-child {
+	min-width: 10%;
+	margin-right: 5em;
 	text-align: left;
 }
+
 .property-group summary div:nth-child(2) {
 	color: #616161
 }
@@ -54,21 +74,20 @@ body {
 .property-input {
 	margin-left: 16px;
 	padding-left: 8px;
+	background-color: rgb(55, 55, 64);
+	margin-bottom: 4px;
 }
-.property-group > details > div label {
+
+.property-group>details>div label {
 	margin-left: 16px;
-	min-width: 25%;
+	min-width: 10%;
 	display: inline-block;
+	margin-right: 2em;
 	font-size: 1em;
 	font-size: 14px;
 }
 
-.property-input {
-	background-color: rgb(55, 55, 64);
-	margin-bottom: 2px;
-}
-
-.property-input input {
+.property-input input[type="text"] {
 	height: 25px;
 	font-size: 16px;
 	color: rgba(255, 255, 255, 0.698);
@@ -76,7 +95,47 @@ body {
 	border: 0;
 	padding: 4px 4px 0px 4px;
 	height: 11h;
-	border-bottom: 1px solid rgba(255,255,255,0.2980392156862745);
+	line-height: 1.43;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2980392156862745);
+	margin-bottom: 2px;
+}
+
+.property-input input[type="text"]:focus {
+	outline: none;
+}
+
+.property-input input[type="text"]:focus-within {
+	border-bottom: 2px solid rgba(119,107,231,1);
+}
+
+input:where([type="checkbox"]) {
+	appearance: none;
+	position: relative;
+	width: 30px;
+	height: 10px;
+	border-radius: 1em;
+	margin: auto;
+	background-color: rgba(255, 63, 95, 0.48)
+}
+
+input:where([type="checkbox"]):checked {
+	background-color: rgb(61, 203, 108, 0.48);	
+}
+
+input:where([type="checkbox"])::before {
+	content: "";
+	position: absolute;
+	transform: translate(0, -2px);
+	box-sizing: border-box;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background-color: rgba(255,64,129,1);
+}
+
+input:where([type="checkbox"]):checked::before {
+	left: 16px;
+	background-color: var(--color-succcess)
 }
 
 .material-icons {
@@ -91,36 +150,53 @@ button[type="button"]:has(.material-icons) {
 	padding: 0px 4px;
 }
 
-button[type="button"] .material-icons {
-	font-size: 24px !important;
-}
 .material-icons.inactive {
 	font-size: 24px !important;
-	color:  rgba(255, 255, 255, 0.26) !important;
-	fill:  rgba(255, 255, 255, 0.26) !important;
+	color: rgba(255, 255, 255, 0.26) !important;
+	fill: rgba(255, 255, 255, 0.26) !important;
 }
+
 .material-icons.frozen {
 	color: #00bfd8;
 }
-.naterial-icons.info {
-	color: rgba(50,153,255,1)
+
+.material-icons.info {
+	color: var(--color-info);
 }
 
-.property-input > div:has(table) {
+.naterial-icons.info {
+	color: rgba(50, 153, 255, 1)
+}
+
+.property-input>div:has(table) {
 	width: 100%;
 	display: flex;
 	justify-content: center;
 }
+
 .property-input table {
 	color: rgba(255, 255, 255, 0.698);
 	border-collapse: collapse;
 	line-height: 1.43;
 	width: 70%;
+}
+
+.property-input span,
+.property-input label {
+	line-height: 1.43;
+	vertical-align: middle;
+}
+
+.property-input > span > span.material-icons {
+	font-size: 16px !important;
+	text-align: center;
 
 }
+
 .property-input table tr:nth-child(2n) {
-	background-color: #424242 
+	background-color: #424242
 }
+
 .property-input table tr:nth-child(2n+1) {
 	background-color: #212121
 }
@@ -128,13 +204,14 @@ button[type="button"] .material-icons {
 .property-input table td:nth-child(2) {
 	width: fit-content;
 }
+
 .property-input table td:nth-child(2) .material-icons {
 	font-size: 20px !important;
 }
 
 .property-input table td {
 	padding: 2px 8px 2px 7px;
-	border: 1px solid rgba(255,255,255,0.11764705882352941);
+	border: 1px solid rgba(255, 255, 255, 0.11764705882352941);
 	border-top: none;
 	border-left: none;
 	height: 30px;
@@ -148,11 +225,25 @@ button[type="button"] .material-icons {
 	pointer-events: none;
 }
 
-.toast-normal { background-color: var(--color-normal);}
-.toast-info { background-color: var(--color-info);}
-.toast-succcess { background-color: var(--color-succcess);}
-.toast-warning { background-color: var(--color-warning);}
-.toast-error { background-color: var(--color-error);}
+.toast-normal {
+	background-color: var(--color-normal);
+}
+
+.toast-info {
+	background-color: var(--color-info);
+}
+
+.toast-succcess {
+	background-color: var(--color-succcess);
+}
+
+.toast-warning {
+	background-color: var(--color-warning);
+}
+
+.toast-error {
+	background-color: var(--color-error);
+}
 
 .toast-container .toast {
 	margin-top: 8px;
@@ -163,16 +254,19 @@ button[type="button"] .material-icons {
 	display: flex;
 	flex-direction: row;
 }
+
 .toast span:nth-child(2) {
 	padding: 8px 0 8px 0px;
 	flex-grow: 1;
 }
-.toast-container .toast > .material-icons {
+
+.toast-container .toast>.material-icons {
 	font-size: 24px !important;
 	margin-right: 12px;
 	padding: 7px 0;
 }
-.toast-container .toast button  {
+
+.toast-container .toast button {
 	font-size: 20px !important;
 	margin-left: 12px;
 	padding: 0px 0;

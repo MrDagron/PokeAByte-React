@@ -1,7 +1,9 @@
+import React from "react";
 import { useGamePropertyField } from "../hooks/useGamePropertyField";
 import { clipboardCopy } from "../utils/clipboardCopy";
 import { CopyValueIcon } from "./CopyValueIcon";
 import { PropertyInputField } from "./PropertyInputField";
+import { Store } from "../store/propertyStore";
 
 export function PropertyInfoTable({ path }: { path: string }) {
   const type = useGamePropertyField(path, "type");
@@ -31,7 +33,7 @@ export function PropertyInfoTable({ path }: { path: string }) {
         <tr>
           <td>Address</td>
           <td><CopyValueIcon onClick={() => clipboardCopy(address?.toString())} /></td>
-          <td>{address}</td>
+          <td>{address?.toString(16).toUpperCase()}</td>
         </tr>
         <tr>
           <td>Length</td>
@@ -55,12 +57,31 @@ export function PropertyInfoTable({ path }: { path: string }) {
 }
 
 export function PropertyByteRow({ path }: { path: string }) {
+  const type = useGamePropertyField(path, "type");
   const bytes = useGamePropertyField(path, "bytes");
+  if (!bytes) {
+    return null;
+  }
+  const terminator = Store.client.getGlossary().defaultCharacterMap[0].key;
+  let byteStrings = bytes?.map(x => x.toString(16).padStart(2, "0").toUpperCase());
+  if (type === "string") {  
+    var terminatorIndex = bytes?.indexOf(terminator);
+    byteStrings = byteStrings?.map((byte, index) => index > terminatorIndex ? "" : byte);
+  }
+
   return (
     <tr>
       <td>Bytes</td>
       <td><CopyValueIcon onClick={() => clipboardCopy(bytes?.join(""))} /></td>
-      <td>{bytes}</td>
+      <td>
+        {byteStrings?.map((byte, i) => {
+          return (
+            <React.Fragment key={i}>
+              <input type="text" value={byte} maxLength={4} style={{width: "1.5em", marginLeft: "0.5em"}}/>
+            </React.Fragment>
+          );
+        })}
+      </td>
     </tr>
   );
 }
