@@ -1,42 +1,115 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+	--color-error: rgb(255, 63, 95);
+	--color-success: rgb(61, 203, 108);
+	--background-color-dark: rgba(39,39,47,1); 
+	--background-color: rgba(50,51,61,1);
+	--shadow-color: rgba(0, 0, 0, 0.2);
+	--primary-text: rgba(255,255,255,0.6980392156862745)
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+* {
+	box-sizing: border-box;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+	margin: 0px;
+	font-family: "Roboto", "Helvetica", "Arial", "sans-serif";
+	background-color: rgb(50, 51, 61);
+	color: var(--primary-text);
+	line-height: 1.43;
+	font-size: 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+header {
+	background-color: var(--background-color-dark);
+	height: 64px;
+	padding: 0 24px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.card {
-  padding: 2em;
+header h1 {
+	font-size: 24px;
+	font-weight: normal;	
+	vertical-align: middle;
+	margin-left: 12px;
 }
 
-.read-the-docs {
-  color: #888;
+header > button {
+	font-size: 36px !important;
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	border: none;
+	background: transparent;
 }
+
+header > button:hover {
+	background-color: rgba(173,173,177,0.058823529411764705);
+}
+
+header div {
+	display: flex;
+	flex-direction: row;
+	height: 100%;
+	gap: 4px;
+}
+
+header > div > button {
+	font-size: 15px;
+	font-weight: 500;
+	border: none;
+	background-color: rgba(173, 173, 177, 0.06) !important;
+	height: calc(100% - 3px);
+	padding: 16px 32px !important;
+	text-align: center;
+	text-transform: uppercase;
+}
+header > div > button:hover {
+	background-color: rgba(255,255,255,0.11764705882352941) !important;
+}
+
+header.connected h1,
+header.connected > div > button .material-icons {
+	color: rgb(11, 186, 131);
+}
+header.disconnected h1,
+header.disconnected > div > button .material-icons {
+	color: var(--color-error)
+}
+header > div > button .material-icons {
+	margin-right: 8px;
+}
+
+main {
+	background-color: rgb(55, 55, 64);
+	margin: 0px 24px;	
+	padding: 32px
+}
+
+main,
+header > div > button {
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px
+}
+
+main h2 {
+	font-size: 2.125rem;
+	margin-top: 0;
+	margin-bottom: .35em;
+	font-family: "Roboto", "Helvetica", "Arial", "sans-serif";
+	font-weight: normal;
+	line-height: 1.235;
+	letter-spacing: .00735em;
+}
+
+p {
+	margin: 0;
+	letter-spacing: .15008px;
+}
+
+div.tabBar {
+	background-color: var(--background-color-dark);
+}
+
