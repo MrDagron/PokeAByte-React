@@ -19,34 +19,50 @@ export function PropertyInputField({ path }: { path: string }) {
   if (property === null) {
     return null;
   }
-  let type = property.type === "bit" || property.type === "bool" ? "checkbox" : "text";
+  const inputType = property.type === "bit" || property.type === "bool" ? "checkbox" : "text";
   const propertyValue = getPropertyFieldValue(property) ?? "";
   const [value, setValue] = React.useState(propertyValue);
   const [hasFocus, setHasFocus] = React.useState(false);
   const [madeEdit, setMadeEdit] = React.useState(false);
+  const currentValue = (hasFocus || madeEdit) ? value : propertyValue;
   const handleSave = useCallback(
     () => {
       if (property?.path) {
-        Store.client.updatePropertyValue(property.path, value)
+        Store.client.updatePropertyValue(property.path, currentValue)
           .then(() => {
             setMadeEdit(false);
             Toasts.push(`Saved successful`, "task_alt", "succcess");
         });
       }
     },
-    [property.path]
+    [property.path, currentValue]
   );
+
   return (
     <>
-      <input
-        type={type}
-        value={(hasFocus || madeEdit) ? value : propertyValue}
-        onFocus={() => { setHasFocus(true); setValue(propertyValue); }}
-        onBlur={() => setHasFocus(false)}
-        onChange={(e) => { setValue(e.currentTarget.value); setMadeEdit(true) }}
-      />
+      {property.type === "bool"
+        ? <PropertyCheckbox value={currentValue} setValue={value => { setValue(value); setMadeEdit(true) }} />
+        : <input
+          type={inputType}
+          checked={currentValue}
+          value={currentValue}
+          onFocus={() => { setHasFocus(true); setValue(propertyValue); }}
+          onBlur={() => setHasFocus(false)}
+          onChange={(e) => { setValue(e.currentTarget.value); setMadeEdit(true) }}
+        />
+      }
       <SaveValueButton value={value} active={madeEdit} onClick={handleSave} />
       <FreezeValueButton isFrozen={property.isFrozen} path={property.path} />
     </>
+  )
+}
+
+export function PropertyCheckbox({value, setValue}: {value: boolean, setValue: (value: boolean)=>void}) {
+  return (
+    <input
+      type="checkbox"
+      checked={Boolean(value)}
+      onChange={() => { setValue(!value); }}
+    />
   )
 }

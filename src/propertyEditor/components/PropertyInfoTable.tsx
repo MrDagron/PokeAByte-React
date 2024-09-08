@@ -1,3 +1,4 @@
+import React from "react";
 import { useGamePropertyField } from "../hooks/useGamePropertyField";
 import { clipboardCopy } from "../utils/clipboardCopy";
 import { CopyValueIcon } from "./CopyValueIcon";
@@ -31,7 +32,7 @@ export function PropertyInfoTable({ path }: { path: string }) {
         <tr>
           <td>Address</td>
           <td><CopyValueIcon onClick={() => clipboardCopy(address?.toString())} /></td>
-          <td>{address}</td>
+          <td>{address?.toString(16).toUpperCase()}</td>
         </tr>
         <tr>
           <td>Length</td>
@@ -55,12 +56,32 @@ export function PropertyInfoTable({ path }: { path: string }) {
 }
 
 export function PropertyByteRow({ path }: { path: string }) {
+  const type = useGamePropertyField(path, "type");
   const bytes = useGamePropertyField(path, "bytes");
+  if (!bytes) {
+    return null;
+  }
+  let byteStrings = bytes?.map(x => x.toString(16).padStart(2, "0").toUpperCase());
+  if (type === "string") {  
+    var terminator = byteStrings?.indexOf("50");
+    byteStrings = byteStrings?.map((byte, index) => index > terminator ? "" : byte);
+  }
+
   return (
     <tr>
       <td>Bytes</td>
       <td><CopyValueIcon onClick={() => clipboardCopy(bytes?.join(""))} /></td>
-      <td>{bytes}</td>
+      <td>
+        {byteStrings?.map((byte, i) => {
+          return (
+            <React.Fragment key={i}>
+              <input  value={byte} maxLength={4} style={{width: "2em"}}/>
+              &nbsp;
+              &nbsp;
+            </React.Fragment>
+          );
+        })}
+      </td>
     </tr>
   );
 }
