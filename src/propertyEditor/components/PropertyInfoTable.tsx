@@ -3,6 +3,7 @@ import { useGamePropertyField } from "../hooks/useGamePropertyField";
 import { clipboardCopy } from "../utils/clipboardCopy";
 import { CopyValueIcon } from "./CopyValueIcon";
 import { PropertyInputField } from "./PropertyInputField";
+import { Store } from "../store/propertyStore";
 
 export function PropertyInfoTable({ path }: { path: string }) {
   const type = useGamePropertyField(path, "type");
@@ -61,10 +62,11 @@ export function PropertyByteRow({ path }: { path: string }) {
   if (!bytes) {
     return null;
   }
+  const terminator = Store.client.getGlossary().defaultCharacterMap[0].key;
   let byteStrings = bytes?.map(x => x.toString(16).padStart(2, "0").toUpperCase());
   if (type === "string") {  
-    var terminator = byteStrings?.indexOf("50");
-    byteStrings = byteStrings?.map((byte, index) => index > terminator ? "" : byte);
+    var terminatorIndex = bytes?.indexOf(terminator);
+    byteStrings = byteStrings?.map((byte, index) => index > terminatorIndex ? "" : byte);
   }
 
   return (
@@ -75,9 +77,7 @@ export function PropertyByteRow({ path }: { path: string }) {
         {byteStrings?.map((byte, i) => {
           return (
             <React.Fragment key={i}>
-              <input  value={byte} maxLength={4} style={{width: "2em"}}/>
-              &nbsp;
-              &nbsp;
+              <input type="text" value={byte} maxLength={4} style={{width: "1.5em", marginLeft: "0.5em"}}/>
             </React.Fragment>
           );
         })}
