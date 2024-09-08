@@ -1,25 +1,20 @@
-﻿import config from "../../config.json"
-import  {useEffect, useState} from "react";
+﻿import  {useEffect, useState} from "react";
+import { Store } from "../propertyEditor/store/propertyStore";
+import { AvailableMapper } from "pokeaclient";
+import { Toasts } from "../notifications/ToastStore";
 
-interface Mapper {
-    id: string;
-    displayName: string;
-}
-
-const fetchData = async () : Promise<Mapper[]> => {
-    const url = config.pokeabyte_url + "/mapper-service/get-mappers"
-    const resp = await fetch(url, {
-        method: "GET"
-    });
-    return await resp.json();
-};
 
 export default function GetMappers() {
-    const [mapperData, setMapperData] = useState<Mapper[] | null> (null);
+    const [mapperData, setMapperData] = useState<AvailableMapper[] | null> (null);
     useEffect(() => {
-        fetchData().then((data) => {
+        Store.client.getMappers().then(data => {
+          console.log(data);
+          if (data) {
             setMapperData(data);
-        });
+          } else {
+            Toasts.push("Failed to load mappers", "error", "error");
+          }
+        })
     }, [])
     return (
         <>
