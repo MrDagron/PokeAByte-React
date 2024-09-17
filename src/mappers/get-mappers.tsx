@@ -1,6 +1,7 @@
 ﻿import config from "../../config.json"
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { Store } from "../propertyEditor/store/propertyStore";
+import { SelectInput } from "../components/SelectInput";
 
 interface Mapper {
   id: string;
@@ -23,6 +24,17 @@ export default function GetMappers() {
       setMapperData(data);
     });
   }, [])
+
+  const handleMapperSelection = (mapperId: string|null) => {    
+    if (mapperId) {
+
+      console.log("Setting mapper");
+      fetch(
+        "http://localhost:8085/mapper-service/change-mapper", 
+        { method: "PUT", body: JSON.stringify(mapperId), headers: { "Content-Type": "application/json" } }
+      );
+    }
+  }
   return (
     <>
       <h2>Mapper Manager</h2>
@@ -30,12 +42,17 @@ export default function GetMappers() {
         ? <p>Mapper Loaded: {mapper.gameName} </p>
         : <p>No Mapper Loaded </p>
       }
+      
       {mapperData ? (
-        <ul>
-          {mapperData.map(({ id, displayName }) => {
-            return <li key={id}>{displayName}</li>;
-          })}
-        </ul>
+        <>
+        <SelectInput 
+          id="mapper-select"
+          label="Select the mapper you would like to load:"
+          onSelection={handleMapperSelection}
+          value={mapper?.id ?? null}
+          options={mapperData?.map(x => {return { value: x.id, display: x.displayName}})} 
+        />
+        </>
       ) : (
         <p>Loading...</p>
       )}

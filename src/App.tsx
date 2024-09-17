@@ -11,6 +11,9 @@ function App() {
   const mapper = useSyncExternalStore(Store.subscribeMapper, Store.getMapper);
   const [viewState, setViewState] = React.useState<"mappers" | "properties">("properties");
   const highlightClass = mapper ? "connected" : "disconnected";
+  React.useEffect(() => {
+    setViewState(!!mapper ? "properties" : "mappers");
+  }, [mapper])
   return (
     <>
       <header className={highlightClass}>
