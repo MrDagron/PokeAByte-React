@@ -4,6 +4,8 @@ import { Store } from "./store/propertyStore";
 import { PropertyTree } from "./components/PropertyTree";
 import { unique } from "./utils/unique";
 import { useSyncExternalStore } from "react";
+import { Button } from "../components/Button";
+import { unloadMapper } from "../utility/unloadMapper";
 
 export function PropertyEditor() {
   let properties = Store.getAllProperties();
@@ -31,13 +33,20 @@ export function PropertyEditor() {
     );
   }
   return (
+    <div>
+      <span>
+
+      <h6>
+        Properties for {mapper?.gameName}
+      </h6>
+      <Button label="UNLOAD MAPPER" onClick={unloadMapper}/>
+      </span>
+
     <div id="property-editor">
-      <h1>
-        Properties for {mapper?.gameName} Mapper
-      </h1>
       {paths.map((x) => {
         return <PropertyTree key={x} path={x} />
       })}
     </div>
+      </div>
   )
 }

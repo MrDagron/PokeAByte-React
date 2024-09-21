@@ -11,9 +11,11 @@ body {
 	font-family: "Roboto", "Helvetica", "Arial", "sans-serif";
 }
 
-#property-editor h1 {
+h6   {
 	padding: 8px;
-	font-size: 1.25rem;
+	font-size: 20px;
+	margin: 0;
+	display: inline-block;
 }
 #root:has(#property-editor)  {
 	width: 100%;
